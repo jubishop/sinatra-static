@@ -9,6 +9,7 @@ gem 'rubocop'
 gem 'rubocop-performance'
 gem 'rubocop-rake'
 gem 'rubocop-rspec'
+gem 'sinatra'
 gem 'steep'
 
 source 'https://www.jubigems.org' do
