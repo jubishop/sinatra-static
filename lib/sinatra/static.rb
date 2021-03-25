@@ -21,14 +21,15 @@ module Sinatra
     end
 
     def self.registered(app)
-      app.helpers(Static::Helpers)
       app.set(static: false)
+      app.helpers(Static::Helpers)
 
       app.before(/.+?\.(css|js|ico)/) {
         cache_control(:public, :immutable, { max_age: 31536000 })
       }
 
       app.get(%r{/(.+?)_.+?\.(css|js|ico)}) { |file, extension|
+        puts File.mtime("#{file}.#{extension}").to_i
         file_name = File.join(Geminabox.public_folder, "#{file}.#{extension}")
         send_file(file_name)
       }
