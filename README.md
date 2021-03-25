@@ -20,13 +20,22 @@ gem 'sinatra-static', source: 'https://www.jubigems.org/'
 
 ## Usage
 
-```ruby
+In your main file:
 
-require 'sinatra-static'
+```ruby
+require 'sinatra/static'
 
 class MyApp < Sinatra::Base
-  include SinatraStatic
+  register Sinatra::Static
 end
+```
+
+In an erb file:
+
+```ruby
+<%= static('favicon.ico', 'icon') %>
+<%= css('index') %>
+```
 
 ## License
 
