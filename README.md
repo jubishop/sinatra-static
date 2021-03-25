@@ -28,7 +28,7 @@ gem 'sinatra-static', source: 'https://www.jubigems.org/'
 
 ### In Production (`APP_ENV=production`)
 
-- `sinatra-static` checks and stores in memory the `mtime` of each static asset when it's first requested.  It then appends that `mtime` value to the assets URL.  As long as you haven't modified the file, this URL won't change, and any client that has already requested the asset will continue to use the cached version.  As soon as you modify the file and restart your server, the `mtime` (and, subsequently, the URL) will change, and clients will download the new version.  This gives you optimal control over having clients only request an asset once upon change.
+- `sinatra-static` checks and stores in memory the `mtime` of each static asset when it's first requested.  It then appends that `mtime` value to the asset's URL.  As long as you haven't modified the file, this URL won't change, and any client that has already requested the asset will continue to use the cached version.  As soon as you modify the file and restart your server, the `mtime` (and, subsequently, the URL) will change, and clients will download the new version.  This gives you optimal control over having clients always request an asset once it's changed but never request it again if it hasn't changed.
 
 ### In Development (`APP_ENV=development`)
 
