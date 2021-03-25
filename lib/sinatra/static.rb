@@ -19,13 +19,13 @@ module Sinatra
         return mtimes.fetch(asset)
       end
 
-      def static(asset, rel)
+      def rel(asset, rel)
         file, ext = *asset.split('.')
         %(<link rel="#{rel}" href="/#{file}__#{time(asset)}.#{ext}" />)
       end
 
       def css(file)
-        static("#{file}.css", 'stylesheet')
+        rel("#{file}.css", 'stylesheet')
       end
 
       private
