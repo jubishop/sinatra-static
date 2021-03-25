@@ -4,8 +4,6 @@ Cache-smart serving of static assets for Sinatra.
 
 ## Installation
 
-This gem can be found at https://www.jubigems.org/gems/sinatra-static
-
 ### Global installation
 
 ```zsh
