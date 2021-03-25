@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = 'sinatra-static'
-  spec.version       = '0.8'
+  spec.version       = '0.9'
   spec.summary       = %q(Cache-smart serving of static assets for Sinatra.)
   spec.authors       = ['Justin Bishop']
   spec.email         = ['jubishop@gmail.com']

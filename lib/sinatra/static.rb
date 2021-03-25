@@ -3,16 +3,22 @@ require 'sinatra'
 module Sinatra
   module Static
     module Helpers
-      TIME = Time.now.to_i
-      private_constant :TIME
+      @mtimes = Hash.new
 
-      def time
-        self.class.development? ? Time.now.to_i : TIME
+      def time(asset)
+        return Time.now.to_i if self.class.development?
+
+        unless @mtimes.key?(asset)
+          file_name = File.join(Geminabox.public_folder, "#{file}.#{extension}")
+          @mtimes[asset] = File.mtime(file_name).to_i
+        end
+
+        return @mtimes.fetch(asset)
       end
 
       def static(asset, rel)
         file, ext = *asset.split('.')
-        %(<link rel="#{rel}" href="/#{file}_#{time}.#{ext}" />)
+        %(<link rel="#{rel}" href="/#{file}_#{time(asset)}.#{ext}" />)
       end
 
       def css(file)
@@ -29,7 +35,6 @@ module Sinatra
       }
 
       app.get(%r{/(.+?)_.+?\.(css|js|ico)}) { |file, extension|
-        puts File.mtime("#{file}.#{extension}").to_i
         file_name = File.join(Geminabox.public_folder, "#{file}.#{extension}")
         send_file(file_name)
       }
