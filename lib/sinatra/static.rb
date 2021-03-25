@@ -25,12 +25,12 @@ module Sinatra
       app.set(static: false)
 
       app.before(/.+?\.(css|js|ico)/) {
-        app.cache_control(:public, :immutable, { max_age: 31536000 })
+        cache_control(:public, :immutable, { max_age: 31536000 })
       }
 
       app.get(%r{/(.+?)_.+?\.(css|js|ico)}) { |file, extension|
         file_name = File.join(Geminabox.public_folder, "#{file}.#{extension}")
-        app.send_file(file_name)
+        send_file(file_name)
       }
     end
   end
