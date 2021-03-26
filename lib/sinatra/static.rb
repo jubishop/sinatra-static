@@ -1,37 +1,51 @@
-require 'sinatra'
+require 'sinatra/base'
 
 module Sinatra
   module Static
     module Helpers
+      def favicon_link_tag(source = 'favicon.ico',
+                           rel: 'shortcut icon',
+                           type: 'image/x-icon')
+        %(<link rel="#{rel}"
+                href="#{static_url(source)}"
+                type="#{type}" />)
+      end
+
+      def stylesheet_link_tag(*sources, media: 'screen')
+        sources.map { |source|
+          source += '.css' if File.extname(source).empty?
+          %(<link rel="stylesheet"
+                  href="#{static_url(source)}"
+                  media="#{media}" />)
+        }.join("\n")
+      end
+
+      private
+
       @mtimes = {}
       class << self
         attr_reader :mtimes
       end
 
-      def time(asset)
+      def time(source)
         return Time.now.to_i if self.class.development?
 
         mtimes = Static::Helpers.mtimes
-        unless mtimes.key?(asset)
-          mtimes[asset] = File.mtime(static_path(asset)).to_i
+        unless mtimes.key?(source)
+          mtimes[source] = File.mtime(static_path(source)).to_i
         end
 
-        return mtimes.fetch(asset)
+        return mtimes.fetch(source)
       end
 
-      def rel(asset, rel)
-        file, ext = *asset.split('.')
-        %(<link rel="#{rel}" href="/#{file}__#{time(asset)}.#{ext}" />)
+      def static_url(source)
+        source.prepend('/') unless source.start_with?('/')
+        path, ext = source.split('.')
+        return "#{path}__#{time(source)}.#{ext}"
       end
 
-      def css(file)
-        rel("#{file}.css", 'stylesheet')
-      end
-
-      private
-
-      def static_path(file_name)
-        File.join(settings.public_folder, file_name)
+      def static_path(source)
+        return File.join(settings.public_folder, source)
       end
     end
 
@@ -43,9 +57,11 @@ module Sinatra
         cache_control(:public, :immutable, { max_age: 31536000 })
       }
 
-      app.get(%r{/(.+?)__.+?\.(css|js|ico)}) { |file, extension|
-        send_file(static_path("#{file}.#{extension}"))
+      app.get(%r{(.+?)__\d+?\.(css|js|ico)}) { |path, extension|
+        send_file(static_path("#{path}.#{extension}"))
       }
     end
   end
+
+  register Static
 end

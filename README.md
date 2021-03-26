@@ -44,19 +44,10 @@ class MyApp < Sinatra::Base
 end
 ```
 
-In any erb file there are helper functions you can use to generate the proper markup for each type of static asset:
+Then, for your view files (typically `.erb` files), `sinatra-static` provides the following methods with the same interface as those found in the [`AssetTagHelper`](https://api.rubyonrails.org/classes/ActionView/Helpers/AssetTagHelper.html) class in Ruby on Rails.
 
-- CSS:
-
-```erb
-<%= css('index') %>
-```
-
-- Any generic `<link rel=... href=... />` tag (such as for a `favicon`):
-
-```erb
-<%= rel('favicon.ico', 'icon') %>
-```
+- [stylesheet_link_tag](https://api.rubyonrails.org/classes/ActionView/Helpers/AssetTagHelper.html#method-i-stylesheet_link_tag)
+- [favicon_link_tag](https://api.rubyonrails.org/classes/ActionView/Helpers/AssetTagHelper.html#method-i-favicon_link_tag)
 
 ## License
 
