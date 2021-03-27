@@ -1,5 +1,7 @@
 # sinatra-static
 
+[![Rubocop Status](https://github.com/jubishop/sinatra-static/workflows/Rubocop/badge.svg)](https://github.com/jubishop/sinatra-static/actions)
+
 Cache-smart serving of static assets for Sinatra.
 
 ## Installation
