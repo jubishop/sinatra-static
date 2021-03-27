@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q(Cache-smart serving of static assets for Sinatra.)
   spec.authors       = ['Justin Bishop']
   spec.email         = ['jubishop@gmail.com']
-  spec.homepage      = 'https://www.jubigems.org/gems/sinatra-static'
+  spec.homepage      = 'https://github.com/jubishop/sinatra-static'
   spec.license       = 'MIT'
   spec.files         = Dir['lib/**/*.rb']
   spec.require_paths = ['lib']
