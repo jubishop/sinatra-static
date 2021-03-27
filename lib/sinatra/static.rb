@@ -57,7 +57,7 @@ module Sinatra
         cache_control(:public, :immutable, { max_age: 31536000 })
       }
 
-      app.get(%r{(.+?)__\d+?\.(css|js|ico)}) { |path, extension|
+      app.get(/(.+?)__\d+?\.(css|js|ico)/) { |path, extension|
         send_file(static_path("#{path}.#{extension}"))
       }
     end
