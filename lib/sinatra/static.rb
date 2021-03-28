@@ -24,23 +24,23 @@ module Sinatra
     module Private
       @mtimes = {}
       class << self
-        attr_reader :mtimes
+        private
+
+        def time(app, source)
+          return Time.now.to_i if app.class.development?
+
+          unless @mtimes.key?(source)
+            @mtimes[source] = File.mtime(static_path(app, source)).to_i
+          end
+
+          return @mtimes.fetch(source)
+        end
       end
 
       def self.static_url(app, source)
         source.prepend('/') unless source.start_with?('/')
         path, ext = source.split('.')
         return "#{path}__#{time(app, source)}.#{ext}"
-      end
-
-      def self.time(app, source)
-        return Time.now.to_i if app.class.development?
-
-        unless mtimes.key?(source)
-          mtimes[source] = File.mtime(static_path(app, source)).to_i
-        end
-
-        return mtimes.fetch(source)
       end
 
       def self.static_path(app, source)
@@ -57,7 +57,7 @@ module Sinatra
       }
 
       app.get(/(.+?)__\d+?\.(css|js|ico)/) { |path, extension|
-        send_file(Static::Private.static_path(self, "#{path}.#{extension}"))
+        send_file(Private.static_path(self, "#{path}.#{extension}"))
       }
     end
   end
