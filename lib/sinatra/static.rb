@@ -7,7 +7,7 @@ module Sinatra
                            rel: 'shortcut icon',
                            type: 'image/x-icon')
         %(<link rel="#{rel}"
-                href="#{static_url(source)}"
+                href="#{Private.static_url(self, source)}"
                 type="#{type}" />)
       end
 
@@ -15,37 +15,36 @@ module Sinatra
         sources.map { |source|
           source += '.css' if File.extname(source).empty?
           %(<link rel="stylesheet"
-                  href="#{static_url(source)}"
+                  href="#{Private.static_url(self, source)}"
                   media="#{media}" />)
         }.join("\n")
       end
+    end
 
-      private
-
+    module Private
       @mtimes = {}
       class << self
         attr_reader :mtimes
       end
 
-      def time(source)
-        return Time.now.to_i if self.class.development?
+      def self.static_url(app, source)
+        source.prepend('/') unless source.start_with?('/')
+        path, ext = source.split('.')
+        return "#{path}__#{time(app, source)}.#{ext}"
+      end
 
-        mtimes = Static::Helpers.mtimes
+      def self.time(app, source)
+        return Time.now.to_i if app.class.development?
+
         unless mtimes.key?(source)
-          mtimes[source] = File.mtime(static_path(source)).to_i
+          mtimes[source] = File.mtime(static_path(app, source)).to_i
         end
 
         return mtimes.fetch(source)
       end
 
-      def static_url(source)
-        source.prepend('/') unless source.start_with?('/')
-        path, ext = source.split('.')
-        return "#{path}__#{time(source)}.#{ext}"
-      end
-
-      def static_path(source)
-        return File.join(settings.public_folder, source)
+      def self.static_path(app, source)
+        return File.join(app.settings.public_folder, source)
       end
     end
 
@@ -58,7 +57,7 @@ module Sinatra
       }
 
       app.get(/(.+?)__\d+?\.(css|js|ico)/) { |path, extension|
-        send_file(static_path("#{path}.#{extension}"))
+        send_file(Static::Private.static_path(self, "#{path}.#{extension}"))
       }
     end
   end
