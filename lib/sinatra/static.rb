@@ -14,8 +14,13 @@ module Sinatra
       def preload_link_tag(source)
         %(<link rel="preload"
                 href="#{source}"
-                as="style"
-                type="text/css" />)
+                as="style" />)
+      end
+
+      def preconnect_link_tag(source)
+        %(<link rel="preconnect"
+                href="#{source}"
+                crossorigin />)
       end
 
       def stylesheet_link_tag(*sources, media: 'screen')
