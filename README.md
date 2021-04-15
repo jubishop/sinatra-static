@@ -51,6 +51,21 @@ Then, for your view files (typically `.erb` files), `sinatra-static` provides th
 - [stylesheet_link_tag](https://api.rubyonrails.org/classes/ActionView/Helpers/AssetTagHelper.html#method-i-stylesheet_link_tag)
 - [favicon_link_tag](https://api.rubyonrails.org/classes/ActionView/Helpers/AssetTagHelper.html#method-i-favicon_link_tag)
 
+`sinatra-static` also supports some other methods of its own:
+
+- `preconnect_link_tag(source)`: Creates a `<link rel="preconnect" ...` tag.
+- `google_fonts(*fonts)`: Creates proper link to google fonts.
+  - For example `google_fonts "Fira Code", "Fira Sans"` creates the tags:
+
+```html
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin />
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fira Code&family=Fira Sans&display=swap"
+      media="screen" />
+```
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
