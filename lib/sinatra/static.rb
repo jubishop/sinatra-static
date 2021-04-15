@@ -11,6 +11,13 @@ module Sinatra
                 type="#{type}" />)
       end
 
+      def preload_link_tag(source)
+        %(<link rel="preload"
+                href="#{source}"
+                as="style"
+                type="text/css" />)
+      end
+
       def stylesheet_link_tag(*sources, media: 'screen')
         sources.map { |source|
           %(<link rel="stylesheet"
