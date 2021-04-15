@@ -7,11 +7,12 @@ module Sinatra
                            rel: 'shortcut icon',
                            type: 'image/x-icon')
         %(<link rel="#{rel}"
-                href="#{Private.static_url(self, source)}"
+                href="#{Private.static_url(self, source.to_s)}"
                 type="#{type}" />)
       end
 
       def stylesheet_link_tag(*sources, media: 'screen')
+        sources.map!(&:to_s)
         sources.map { |source|
           source += '.css' if File.extname(source).empty?
           %(<link rel="stylesheet"
