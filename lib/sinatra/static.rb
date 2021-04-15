@@ -3,20 +3,18 @@ require 'sinatra/base'
 module Sinatra
   module Static
     module Helpers
-      def favicon_link_tag(source = 'favicon.ico',
+      def favicon_link_tag(source = :favicon,
                            rel: 'shortcut icon',
                            type: 'image/x-icon')
         %(<link rel="#{rel}"
-                href="#{Private.static_url(self, source.to_s)}"
+                href="#{Private.static_url(self, source, 'ico')}"
                 type="#{type}" />)
       end
 
       def stylesheet_link_tag(*sources, media: 'screen')
-        sources.map!(&:to_s)
         sources.map { |source|
-          source += '.css' if File.extname(source).empty?
           %(<link rel="stylesheet"
-                  href="#{Private.static_url(self, source)}"
+                  href="#{Private.static_url(self, source, 'css')}"
                   media="#{media}" />)
         }.join("\n")
       end
@@ -38,10 +36,12 @@ module Sinatra
         end
       end
 
-      def self.static_url(app, source)
+      def self.static_url(app, source, ext = nil)
+        source = source.to_s
         return source if source.start_with?('http')
 
         source.prepend('/') unless source.start_with?('/')
+        source += ".#{ext}" if ext && File.extname(source).empty?
         path, ext = source.split('.')
         return "#{path}__#{time(app, source)}.#{ext}"
       end
