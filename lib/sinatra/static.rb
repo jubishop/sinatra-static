@@ -11,12 +11,6 @@ module Sinatra
                 type="#{type}" />)
       end
 
-      def preload_link_tag(source)
-        %(<link rel="preload"
-                href="#{source}"
-                as="style" />)
-      end
-
       def preconnect_link_tag(source)
         %(<link rel="preconnect"
                 href="#{source}"
