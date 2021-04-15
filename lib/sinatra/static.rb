@@ -39,6 +39,8 @@ module Sinatra
       end
 
       def self.static_url(app, source)
+        return source if source.start_with?('http')
+
         source.prepend('/') unless source.start_with?('/')
         path, ext = source.split('.')
         return "#{path}__#{time(app, source)}.#{ext}"
