@@ -46,7 +46,7 @@ class MyApp < Sinatra::Base
 end
 ```
 
-Then, for your view files (typically `.erb` files), `sinatra-static` provides the following methods with the same interface as those found in the [`AssetTagHelper`](https://api.rubyonrails.org/classes/ActionView/Helpers/AssetTagHelper.html) class in Ruby on Rails.
+Then, for your view files (such as `.erb` or `.slim` files), `sinatra-static` provides the following methods with the same interface as those found in the [`AssetTagHelper`](https://api.rubyonrails.org/classes/ActionView/Helpers/AssetTagHelper.html) class in Ruby on Rails.
 
 - [stylesheet_link_tag](https://api.rubyonrails.org/classes/ActionView/Helpers/AssetTagHelper.html#method-i-stylesheet_link_tag)
 - [favicon_link_tag](https://api.rubyonrails.org/classes/ActionView/Helpers/AssetTagHelper.html#method-i-favicon_link_tag)
@@ -55,7 +55,7 @@ Then, for your view files (typically `.erb` files), `sinatra-static` provides th
 
 - `preconnect_link_tag(source)`
 - `google_fonts(*fonts)`: Creates proper tags for google fonts.
-  - For example `google_fonts("Fira Code", "Fira Sans")` renders:
+  - For example, `google_fonts("Fira Code", "Fira Sans")` renders:
 
 ```html
 <link rel="preconnect"
