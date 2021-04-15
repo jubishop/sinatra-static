@@ -53,9 +53,9 @@ Then, for your view files (typically `.erb` files), `sinatra-static` provides th
 
 `sinatra-static` also supports some other methods of its own:
 
-- `preconnect_link_tag(source)`: Creates a `<link rel="preconnect" ...` tag.
-- `google_fonts(*fonts)`: Creates proper link to google fonts.
-  - For example `google_fonts "Fira Code", "Fira Sans"` creates the tags:
+- `preconnect_link_tag(source)`
+- `google_fonts(*fonts)`: Creates proper tags for google fonts.
+  - For example `google_fonts("Fira Code", "Fira Sans")` renders:
 
 ```html
 <link rel="preconnect"
