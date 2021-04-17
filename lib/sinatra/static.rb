@@ -25,6 +25,12 @@ module Sinatra
         }.join("\n")
       end
 
+      def javascript_include_tag(*sources)
+        sources.map { |source|
+          %(<script src="#{Private.static_url(self, source, 'js')}"></script>)
+        }.join("\n")
+      end
+
       def google_fonts(*fonts)
         families = fonts.map { |font| "family=#{font}" }.join('&')
         source = "https://fonts.googleapis.com/css2?#{families}&display=swap"

@@ -50,6 +50,7 @@ Then, for your view files (such as `.erb` or `.slim` files), `sinatra-static` pr
 
 - [stylesheet_link_tag](https://api.rubyonrails.org/classes/ActionView/Helpers/AssetTagHelper.html#method-i-stylesheet_link_tag)
 - [favicon_link_tag](https://api.rubyonrails.org/classes/ActionView/Helpers/AssetTagHelper.html#method-i-favicon_link_tag)
+- [javascript_include_tag](https://api.rubyonrails.org/classes/ActionView/Helpers/AssetTagHelper.html#method-i-javascript_include_tag)
 
 `sinatra-static` also supports some other methods of its own:
 
