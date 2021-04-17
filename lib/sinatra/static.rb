@@ -25,9 +25,10 @@ module Sinatra
         }.join("\n")
       end
 
-      def javascript_include_tag(*sources)
+      def javascript_include_tag(*sources, crossorigin: :anonymous)
         sources.map { |source|
-          %(<script src="#{Private.static_url(self, source, 'js')}"></script>)
+          %(<script src="#{Private.static_url(self, source, 'js')}"
+                    crossorigin="#{crossorigin}"></script>)
         }.join("\n")
       end
 
@@ -38,6 +39,11 @@ module Sinatra
           #{preconnect_link_tag('https://fonts.gstatic.com')}
           #{stylesheet_link_tag(source)}
         HTML
+      end
+
+      def font_awesome(kit_id)
+        javascript_include_tag("https://kit.fontawesome.com/#{kit_id}.js",
+                               crossorigin: :anonymous)
       end
     end
 

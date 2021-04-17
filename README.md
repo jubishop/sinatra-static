@@ -56,7 +56,7 @@ Then, for your view files (such as `.erb` or `.slim` files), `sinatra-static` pr
 
 - `preconnect_link_tag(source)`
 - `google_fonts(*fonts)`: Creates proper tags for google fonts.
-  - For example, `google_fonts("Fira Code", "Fira Sans")` renders:
+  For example, `google_fonts("Fira Code", "Fira Sans")` renders:
 
 ```html
 <link rel="preconnect"
@@ -65,6 +65,13 @@ Then, for your view files (such as `.erb` or `.slim` files), `sinatra-static` pr
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Fira Code&family=Fira Sans&display=swap"
       media="screen" />
+```
+
+-`font_awesome(kit_id)`: Creates proper tags for using font-awesome.
+  For example, `font_awesome("12345")` renders:
+
+```html
+<script src="https://kit.fontawesome.com/12345.js" crossorigin="anonymous"></script>
 ```
 
 ## License
