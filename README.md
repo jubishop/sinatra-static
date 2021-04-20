@@ -23,8 +23,6 @@ gem 'sinatra-static', source: 'https://www.jubigems.org/'
 `sinatra-static` is meant as a smarter tool for serving static assets within Sinatra:
 
 - It will always send the header `cache_control(:public, :immutable, { max_age: 31536000 })` for every static asset requested.
-- It will automatically disable the static file serving functionality built into Sinatra.
-- It will reuse the same `:public_folder` configuration option provided by Sinatra to find your static assets (by default this is `public/`).
 
 ### In Production (`APP_ENV=production`)
 

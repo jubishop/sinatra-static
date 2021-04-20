@@ -69,25 +69,15 @@ module Sinatra
 
         source.prepend('/') unless source.start_with?('/')
         source += ".#{ext}" if ext && File.extname(source).empty?
-        path, ext = source.split('.')
-        return "#{path}__#{time(app, source)}.#{ext}"
-      end
-
-      def self.static_path(app, source)
-        return File.join(app.settings.public_folder, source)
+        return "#{source}?v=#{time(app, source)}"
       end
     end
 
     def self.registered(app)
-      app.set(static: false)
       app.helpers(Static::Helpers)
 
       app.before(/.+?\.(css|js|ico)/) {
         cache_control(:public, :immutable, { max_age: 31536000 })
-      }
-
-      app.get(/(.+?)__\d+?\.(css|js|ico)/) { |path, extension|
-        send_file(Private.static_path(self, "#{path}.#{extension}"))
       }
     end
   end
