@@ -71,6 +71,10 @@ module Sinatra
         source += ".#{ext}" if ext && File.extname(source).empty?
         return "#{source}?v=#{time(app, source)}"
       end
+
+      def self.static_path(app, source)
+        return File.join(app.settings.public_folder, source)
+      end
     end
 
     def self.registered(app)
