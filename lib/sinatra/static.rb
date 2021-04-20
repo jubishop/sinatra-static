@@ -76,9 +76,8 @@ module Sinatra
     def self.registered(app)
       app.helpers(Static::Helpers)
 
-      app.before(/.+?\.(css|js|ico)/) {
-        cache_control(:public, :immutable, { max_age: 31536000 })
-      }
+      app.set(:static_cache_control,
+              [:public, :immutable, { max_age: 31536000 }])
     end
   end
 
