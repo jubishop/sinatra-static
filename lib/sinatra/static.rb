@@ -61,6 +61,10 @@ module Sinatra
 
           return @mtimes.fetch(source)
         end
+
+        def static_path(app, source)
+          return File.join(app.settings.public_folder, source)
+        end
       end
 
       def self.static_url(app, source, ext = nil)
@@ -70,10 +74,6 @@ module Sinatra
         source.prepend('/') unless source.start_with?('/')
         source += ".#{ext}" if ext && File.extname(source).empty?
         return "#{source}?v=#{time(app, source)}"
-      end
-
-      def self.static_path(app, source)
-        return File.join(app.settings.public_folder, source)
       end
     end
 
