@@ -8,14 +8,12 @@ Cache-smart serving of static assets for Sinatra.
 
 ### Global installation
 
-```zsh
-gem install sinatra-static --source https://www.jubigems.org/
-```
-
 ### In a Gemfile
 
 ```ruby
-gem 'sinatra-static', source: 'https://www.jubigems.org/'
+source: 'https://www.jubigems.org/' do
+  gem 'sinatra-static'
+end
 ```
 
 ## Smart Caching
